@@ -11,7 +11,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>JLTMMR自动文本摘要系统</title>
+    <title>面向中心句自动文本摘要系统</title>
     <script src="resources/statistics.js"></script>
     <link rel="shortcut icon" href="resources/favicon.ico"/>
     <link rel="bookmark" href="resources/favicon.ico"/>
@@ -67,7 +67,7 @@
 <div class="main-container">
     <div class="middle expand-show">
         <div class="logo">
-            <h1 class="title">JLTMMR自动文本摘要系统</h1>
+            <h1 class="title">面向中心句自动文本摘要系统</h1>
         </div>
         <div class="input">
             <section class="content bgcolor-1">

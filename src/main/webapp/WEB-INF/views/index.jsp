@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="resources/login/css/component.css"/>
     <link rel="stylesheet" type="text/css" href="resources/login/css/component_modal.css"/>
-    <title>JLTMMR自动文本摘要系统</title>
+    <title>面向中心句自动文本摘要系统</title>
 </head>
 <body>
 <div id="container" class="wrapper">
@@ -106,7 +106,7 @@
         </li>
         <li class="layer" data-depth="0.2">
             <h1 class="title">
-                JLTMMR<em>自动文本摘要系统</em>
+                面向中心句<em>自动文本摘要系统</em>
                 <br>
                 <br>
                 <a style="text-decoration:none;color:white;" href="<%=basePath%>Input/manual_input">点击输入完整文章</a>

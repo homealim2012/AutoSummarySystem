@@ -11,7 +11,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>JLTMMR自动文本摘要系统</title>
+    <title>面向中心句自动文本摘要系统</title>
     <script src="resources/statistics.js"></script>
     <link rel="shortcut icon" href="resources/favicon.ico"/>
     <link rel="bookmark" href="resources/favicon.ico"/>
@@ -67,7 +67,7 @@
 <div class="main-container">
     <div style="text-align: center">
         <div class="logo">
-            <h1 class="title">JLTMMR自动文本摘要系统</h1>
+            <h1 class="title">面向中心句自动文本摘要系统</h1>
         </div>
         <div class="input">
             <textarea id="source" name="text" placeholder="请输入文章内容(建议500字及以上)" rows="25" cols="80"  wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" style="font-size:24px; color:black; box-sizing: border-box; overflow-y: auto; overflow-x: auto;"></textarea>
