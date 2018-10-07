@@ -2,13 +2,13 @@ package nlp.word.stopword;
 
 public class StopWords {
 	
-	String ChineseSentenceSplitPunc = "！？。，：；";
-	String ChineseDeletePunc = "＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
-	String ChinesePunc = "！？。，、：；＃＄％＆＊＋－／＜＝＞＠＼＾＿℃｀｜～《》「」『』【】〔〕〖〗–—…＂＇（）［］｛｝〃〝〞‘’“”";
-	String EnglishSentenceSplitPunc = "!,.?:;";
-	String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'";
-	String EnglishPunc="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
-	String[] stopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", 
+	public final static String ChineseSentenceSplitPunc = "！？。，：；";
+	public final static String ChineseDeletePunc = "＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
+	public final static String ChinesePunc = "！？。，、：；＃＄％＆＊＋－／＜＝＞＠＼＾＿℃｀｜～《》「」『』【】〔〕〖〗–—…＂＇（）［］｛｝〃〝〞‘’“”";
+	public final static String EnglishSentenceSplitPunc = "!,.?:;";
+	public final static String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'";
+	public final static String EnglishPunc="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+	public final static String[] stopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", 
 			"you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", 
 			"himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", 
 			"they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", 
