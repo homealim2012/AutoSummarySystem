@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.mockito.internal.util.reflection.Fields;
 
 import com.mathworks.toolbox.javabuilder.MWStructArray;
@@ -47,6 +48,31 @@ public class Convert {
     	 }
     	 String[] sfield=new String[fieldsList.size()];
     	 return fieldsList.toArray(sfield);
+     }
+     
+     public static void setDstSources(List<Sentence> list)
+     {
+    	 for(Sentence s:list)
+    	 {
+    		 List<String> Words=s.getWords();
+    		 if(Words!=null)
+    		 {	
+    		    s.setDst_sentence(StringUtils.join(Words, ' '));
+    		 }
+    	 }
+     }
+     public static void setOrder(List<Sentence> list)
+     {
+    	 int order=1;
+    	 int index=0;
+    	 for(Sentence s:list)
+    	 {
+            int tempIndex=s.order;
+            if(s.order!=index)
+            	order=1;
+            s.order=order++;
+            index=tempIndex;
+    	 }
      }
      public static void main(String[] args){
     	 List<Sentence> list=new ArrayList<>();

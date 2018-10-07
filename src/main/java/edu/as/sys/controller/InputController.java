@@ -3,6 +3,7 @@ package edu.as.sys.controller;
 import edu.as.sys.model.DBOperation;
 import edu.as.sys.model.Info;
 import edu.as.sys.model.News;
+import nlp.util.NLP;
 import tmfst.textCrawler.CommentCrawler;
 import tmfst.textCrawler.XinlangNewsCrawler;
 import edu.as.sys.common.FileDirectory;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mathworks.toolbox.javabuilder.MWException;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -129,30 +132,32 @@ public class InputController {
             inputContentList.add(publishTimeList.get(i)+"\t"+sourceList.get(i));
         }
 
-        File directory = new File(""); System.out.println("running dir: "+directory.getAbsolutePath());
-
-        //写入input
-        String runningDir = FileDirectory.filePathJoin("DealWithOriginText", nowTime);
-        FileDirectory.createFolder(runningDir); //新建 bin/DealWithOriginText/timestamp 目录
-        FileIO.fileWrite(FileDirectory.filePathJoin(runningDir, "input"), inputContentList, "utf8");
+       
 
         //调用shell命令，执行JLTMMR
         if (testOrNot == false) {
-            String shpath = "sh " + FileDirectory.filePathJoin("DealWithOriginText", "run_jltmmr_system.sh") + " " + nowTime; //在bin目录git clone一个
-            Process ps = Runtime.getRuntime().exec(shpath);
-            ps.waitFor();
+        	try {
+				NLP.run(sourceList);
+			} catch (MWException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
         }
 
         //读取output
-        String jlmlmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jltmmr"));
-        String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));
-        String randomChooseAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_random_choose"));
-        String jtmmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jtmmr"));
-
+        //String jlmlmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jltmmr"));
+        //String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));
+        //String randomChooseAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_random_choose"));
+        //String jtmmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jtmmr"));
+        
+        String jlmlmrAbstractText="";
+        String singlemrAbstractText="" ;
+        String randomChooseAbstractText="";
+        String jtmmrAbstractText=""; 
         //构造info
         Info info = new Info();
         if (testOrNot == false) { //system
-            ArrayList<String> time_sentence_filterSentence = FileIO.fileRead(FileDirectory.filePathJoin(runningDir, "time_sentence_filterSentence"), "utf8");
+            ArrayList<String> time_sentence_filterSentence=null;
             info.time_stamp = nowTime;
             info.ori_sentence = getContent(time_sentence_filterSentence, 1);
             info.jlmlmr = jlmlmrAbstractText;
@@ -160,7 +165,7 @@ public class InputController {
             info.singlemr = singlemrAbstractText;
             info.random_choose = randomChooseAbstractText;
             info.filter_sentence = getContent(time_sentence_filterSentence, 2);
-            ArrayList<String> topic_words = getTopicWords(FileDirectory.filePathJoin(runningDir, "U100_1_0.txt"), FileDirectory.filePathJoin(FileDirectory.filePathJoin(runningDir, "JLMLMR_running"), "wordmap_input_1.txt"), 30);
+            ArrayList<String> topic_words = getTopicWords(FileDirectory.filePathJoin(null, "U100_1_0.txt"), FileDirectory.filePathJoin(FileDirectory.filePathJoin(null, "JLMLMR_running"), "wordmap_input_1.txt"), 30);
             info.topic_words = topic_words.get(0);
             info.search_query = "";
             info.urls = "";

@@ -11,19 +11,18 @@ public class BreakIteratorToken implements BaseSentenceToken {
 	
 	public static void main(String[] args){
 		String text=
-		        "你是谁。How are you?" +  
+		        "你是,谁。How are you?" +  
 		        "我是张三、李四...";
-		List<Sentence> res=new BreakIteratorToken().run(text);
+		List<Sentence> res=new BreakIteratorToken().run(text,1);
 		System.out.println(res.get(2).ori_sentence);
 	}
-	public List<Sentence> run(String paragraph){
+	public List<Sentence> run(String paragraph,int order){
 		Locale locale = Locale.CHINA;  
 		BreakIterator breakIterator =  
 		        BreakIterator.getSentenceInstance(locale);
 		breakIterator.setText(paragraph);  
 	    List<Sentence> res=new ArrayList<Sentence>();
 		int startIndex = breakIterator.first();
-		int order=1;
 		while(startIndex != BreakIterator.DONE) {  
 		    int endIndex = breakIterator.next();
 		    Sentence s=new Sentence();
@@ -32,9 +31,19 @@ public class BreakIteratorToken implements BaseSentenceToken {
 		    else
 		    	s.setOri_sentence(paragraph.substring(startIndex));
 		    startIndex=endIndex;
-	    	s.setOrder(order++);
+	    	s.setOrder(order);
 	    	res.add(s);    
 		} 
 	    return res;	
+	}
+	public List<Sentence> run(List<String> paragraph){
+		List<Sentence> res=new ArrayList<Sentence>();
+		int order=1;
+		for(String text:paragraph)
+		{
+			List<Sentence> temp=run(text,order++);
+			res.addAll(temp);
+		}
+		return res;
 	}
 }

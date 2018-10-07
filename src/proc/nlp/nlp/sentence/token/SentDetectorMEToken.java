@@ -26,27 +26,34 @@ public class SentDetectorMEToken implements BaseSentenceToken {
 	     }
 	     return token;
 	}
-	public List<Sentence> run(String paragraph){
+	public List<Sentence> run(String paragraph,int order){
        String[] sents=dector.sentDetect(paragraph);
        List<Sentence> res=new ArrayList<Sentence>();
        for(int i=0;i<sents.length;i++)
        {
     	   Sentence s=new Sentence();
     	   s.setOri_sentence(sents[i]);
-    	   s.setOrder(i+1);
+    	   s.setOrder(order);
     	   res.add(s);
        }
        return res;	
     }
 	
 	public List<Sentence> run(List<String> paragraph){
-		return null;
+		List<Sentence> res=new ArrayList<Sentence>();
+		int order=1;
+		for(String text:paragraph)
+		{
+			List<Sentence> temp=run(text,order++);
+			res.addAll(temp);
+		}
+		return res;
 	}
 	public static void main(String[] args) throws IOException{
 		File a=new File("src/main/java/1.txt");
 		System.out.println(a.getAbsolutePath());
 		String paragraph="Hi. How are you?  This is      &3 $444 Mike.";
-		List<Sentence> res=SentDetectorMEToken.getToken().run(paragraph);
+		List<Sentence> res=SentDetectorMEToken.getToken().run(paragraph,1);
 		System.out.println(res.get(1).ori_sentence);
 		
 	}
