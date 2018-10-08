@@ -3,6 +3,7 @@ package nlp.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mathworks.toolbox.javabuilder.MWCellArray;
 import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWStructArray;
 import TextMining.TextMiner;
@@ -27,8 +28,13 @@ public class NLP {
     	MWStructArray mw_sentence=Convert.getMatlabStructArray(Sentences, Sentence.class);
     	TextMiner tm=new TextMiner();
     	Object[] obj=tm.TextMining(1, mw_sentence);
-    	System.out.println(obj[0].getClass());
+    	MWCellArray mwss=(MWCellArray)obj[0];
     	List<String> SummarySentences=new ArrayList<>();
+    	for(int i=1;i<=mwss.numberOfElements();i++)
+    	{
+    		SummarySentences.add(mwss.getCell(i).toString());
+    		System.out.println(mwss.getCell(i).toString());
+    	}
     	return SummarySentences;
     }
     public static void removeLitteSentence(List<Sentence> list)
