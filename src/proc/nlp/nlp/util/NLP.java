@@ -22,9 +22,12 @@ public class NLP {
     	removeLitteSentence(Sentences);
     	Convert.setDstSources(Sentences);
     	Convert.setOrder(Sentences);
+    	Sentence topicSentence=new Sentence();
+    	Sentences.add(0,topicSentence);
     	MWStructArray mw_sentence=Convert.getMatlabStructArray(Sentences, Sentence.class);
     	TextMiner tm=new TextMiner();
     	Object[] obj=tm.TextMining(1, mw_sentence);
+    	System.out.println(obj[0].getClass());
     	List<String> SummarySentences=new ArrayList<>();
     	return SummarySentences;
     }

@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Sentence {
 	
-	public String ori_sentence;
+	public String ori_sentence="";
 
-	public String dst_sentence;
+	public String dst_sentence="";
 
 	public int order;
 	
