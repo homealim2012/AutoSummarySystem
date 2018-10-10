@@ -21,47 +21,55 @@
     <link rel="stylesheet" type="text/css" href="resources/component_button.css"/>
     <link rel="stylesheet" type="text/css" href="resources/login/css/component_modal.css"/>
     <style>
-        html, body {
-            margin: 0;
-            height: 100%;
-        }
+html, body {
+	margin: 0;
+	height: 100%;
+}
 
-        h1 {
-            margin: 0;
-        }
+h1 {
+	margin: 0;
+}
 
-        .main-container {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
+.main-container {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
 
-        .middle {
-            position: absolute;
-            width: 70%;
-            text-align: center;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            max-height: 400px;
-        }
+.middle {
+	position: absolute;
+	width: 70%;
+	text-align: center;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	max-height: 400px;
+}
 
-        .title {
-            font: 70px microsoft yahei;
-            text-align: center;
-            color: #b04b40;
-            text-shadow: 0px 2px 3px #555;
-            font-weight: bolder;
-        }
+.title {
+	font: 70px microsoft yahei;
+	text-align: center;
+	color: #b04b40;
+	text-shadow: 0px 2px 3px #555;
+	font-weight: bolder;
+}
 
-        /*.title:hover {*/
-        /*color: #a0a0a0;*/
-        /*text-shadow: 0px 5px 8px #2a2a2a;*/
-        /*}*/
-    </style>
+/*.title:hover {*/
+/*color: #a0a0a0;*/
+/*text-shadow: 0px 5px 8px #2a2a2a;*/
+/*}*/
+textarea {
+	border: 0;
+	background-color: transparent;
+	/*scrollbar-arrow-color:yellow;  	scrollbar-base-color:lightsalmon;  	overflow: hidden;*/
+	color: white;
+	height: auto;
+	
+}
+</style>
 </head>
 <body>
 <div class="main-container">
@@ -70,7 +78,10 @@
             <h1 class="title">面向中心句自动文本摘要系统</h1>
         </div>
         <div class="input">
-            <textarea id="source" name="text" placeholder="请输入文章内容(建议500字及以上)" rows="25" cols="80"  wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" style="font-size:24px; color:black; box-sizing: border-box; overflow-y: auto; overflow-x: auto;"></textarea>
+            <textarea id="source" name="text" placeholder="请输入文章内容(建议500字及以上)" rows="25" cols="80" 
+             wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" 
+             autocomplete="off" autocorrect="off" style="font-size:24px; 
+             color:white; box-sizing: border-box; overflow-y: auto; overflow-x: auto;"></textarea>
         </div>
         <div class="hi-icon-wrap hi-icon-effect-8"> <!--图标 http://support.i3dthemes.com/product-components/hover-icons/ -->
             <a href="javascript:void(0)" onclick="handle_submit()" class="hi-icon hi-icon-archive">Archive</a>
