@@ -6,7 +6,7 @@
     <div id="bl-main" class="bl-main">
         <section>
             <div class="bl-box">
-                <h2 class="bl-icon bl-icon-works">JLTMMR</h2>
+                <h2 class="bl-icon bl-icon-works">中心句扩展</h2>
             </div>
             <div class="bl-content">
                 <jsp:include page="jlmlmr.jsp"/>
@@ -16,7 +16,7 @@
 
         <section>
             <div class="bl-box">
-                <h2 class="bl-icon bl-icon-about">JTMMR</h2>
+                <h2 class="bl-icon bl-icon-about">中心句扩展+流形排序</h2>
             </div>
             <div class="bl-content">
                 <jsp:include page="jtmmr.jsp"/>
