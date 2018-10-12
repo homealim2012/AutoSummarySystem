@@ -66,6 +66,21 @@ public class NLP {
     		i++;
     	}
     }
+    
+    public static List<String> filterSentence(List<String> sourceList){
+    	BaseSentenceToken SentToken=new BreakIteratorToken();
+    	List<Sentence> Sentences=SentToken.run(sourceList);
+    	BaseWordToken WordToken=JieBaToken.getToken();
+    	Sentences=WordToken.run(Sentences);
+    	StopWords.removeStopWords(Sentences);
+        removeLitteSentence(Sentences);
+        List<String> filterSentence=new ArrayList<String>();
+        for(Sentence s:Sentences)
+        {
+        	filterSentence.add(s.ori_sentence);
+        }
+        return filterSentence;
+    }
     public static List<String> getMatlabSentence(List<Sentence> Sentences,
     		final int run_type)throws MWException{
     	MWStructArray mw_sentence=Convert.getMatlabStructArray(Sentences, Sentence.class);

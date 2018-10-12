@@ -49,7 +49,7 @@ public class InputController {
     public ResponseResult handleManualInput(String source) throws IOException, InterruptedException {
         ArrayList<String> sourceList = new ArrayList<String>();
         sourceList.add(source);
-        ResponseResult result = commonWork(sourceList, null);
+        ResponseResult result = commonWork(sourceList, null,"");
         if (result.status == true) {
             DBOperation.insertInfo(result.info);
         }
@@ -92,7 +92,7 @@ public class InputController {
             }
             urls += newsList.get(i).url;  
         }
-        ResponseResult result = commonWork(sourceList, publishTimeList);
+        ResponseResult result = commonWork(sourceList, publishTimeList,keyword);
         result.info.search_query = keyword;
         result.info.urls = urls;
         if (result.status == true) {
@@ -105,7 +105,9 @@ public class InputController {
         return result;
     }
 
-    public ResponseResult commonWork(ArrayList<String> sourceList, ArrayList<String> publishTimeList) throws IOException, InterruptedException {
+    public ResponseResult commonWork(ArrayList<String> sourceList,
+    		ArrayList<String> publishTimeList,String keyword
+    		) throws IOException, InterruptedException {
         ResponseResult result = new ResponseResult();
         //构造info
         Info info = new Info();
@@ -142,6 +144,7 @@ public class InputController {
         List<String> qewmv_list=new ArrayList<String>();
         List<String> random_list=new ArrayList<String>();
         List<String> lead_list=new ArrayList<String>();
+        List<String> filter_list=new ArrayList<String>();
         //调用shell命令，执行JLTMMR
         if (testOrNot == false) {
         	try {
@@ -160,22 +163,22 @@ public class InputController {
         //String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));
         //String randomChooseAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_random_choose"));
         //String jtmmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jtmmr"));
-        
+        String oriSentenceText=StringUtils.join(sourceList,'\n');
         String qewmAbstractText=StringUtils.join(qewm_list,'\n');
         String qewmvAbstractText=StringUtils.join(qewmv_list,'\n');
         String leadChooseAbstractText=StringUtils.join(lead_list,'\n');; 
         String randomChooseAbstractText=StringUtils.join(random_list,'\n');
-          
+        String filterSentenceText=StringUtils.join(filter_list,'\n');
         if (testOrNot == false) { //system
             info.time_stamp = nowTime;
-            info.ori_sentence = "";
+            info.ori_sentence = oriSentenceText;
             info.jlmlmr = qewmAbstractText;
             info.jlmlmr_abs = qewmvAbstractText;
             info.singlemr = leadChooseAbstractText;
             info.random_choose = randomChooseAbstractText;
-            info.filter_sentence = "";
+            info.filter_sentence = filterSentenceText;
             info.topic_words = "";
-            info.search_query = "";
+            info.search_query = keyword;
             info.urls = "";
             info.topic_words_score ="";
         }
