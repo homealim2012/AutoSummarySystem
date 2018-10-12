@@ -9,6 +9,8 @@ import tmfst.textCrawler.XinlangNewsCrawler;
 import edu.as.sys.common.FileDirectory;
 import edu.as.sys.common.FileIO;
 import edu.as.sys.common.ResponseResult;
+
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,8 +80,9 @@ public class InputController {
         ArrayList<String> sourceList = new ArrayList<String>();
         ArrayList<String> publishTimeList = new ArrayList<String>();
         String urls = "";
-        for (int i=0; i<Math.min(10, newsList.size()); i++) { //10篇文章
-            if (newsList.get(i).content == "") { //没有content的跳过
+        for (int i=0; i<Math.min(10, newsList.size());i++) { //10篇文章
+            if (newsList.get(i)==null || 
+                newsList.get(i).content.equals("")) { //没有content的跳过
                 continue;
             }
             sourceList.add(newsList.get(i).title + "。 " + newsList.get(i).content);
@@ -87,13 +90,13 @@ public class InputController {
             if (urls.length() > 0) {
                 urls += "\n";
             }
-            urls += newsList.get(i).url;
+            urls += newsList.get(i).url;  
         }
         ResponseResult result = commonWork(sourceList, publishTimeList);
         result.info.search_query = keyword;
         result.info.urls = urls;
         if (result.status == true) {
-            DBOperation.insertInfo(result.info);
+            //DBOperation.insertInfo(result.info);
         }
         else {
             result.msg = "文本爬取结果过少，请换另一些关键词试试";
@@ -104,6 +107,9 @@ public class InputController {
 
     public ResponseResult commonWork(ArrayList<String> sourceList, ArrayList<String> publishTimeList) throws IOException, InterruptedException {
         ResponseResult result = new ResponseResult();
+        //构造info
+        Info info = new Info();
+        result.info = info;
         String nowTime = getTime();
         if (testOrNot == true) {
             nowTime = "2017";
@@ -132,44 +138,46 @@ public class InputController {
             inputContentList.add(publishTimeList.get(i)+"\t"+sourceList.get(i));
         }
 
-       
-
+        List<String> qewm_list=new ArrayList<String>();
+        List<String> qewmv_list=new ArrayList<String>();
+        List<String> random_list=new ArrayList<String>();
+        List<String> lead_list=new ArrayList<String>();
         //调用shell命令，执行JLTMMR
         if (testOrNot == false) {
         	try {
-				NLP.run(sourceList);
+        		qewm_list=NLP.run(sourceList,NLP.type_ori);
+				qewmv_list=NLP.run(sourceList,NLP.type_mani);
+				random_list=NLP.run(sourceList, NLP.type_random);
+				lead_list=NLP.run(sourceList, NLP.type_lead);
 			} catch (MWException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
         }
-
+        
         //读取output
         //String jlmlmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jltmmr"));
         //String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));
         //String randomChooseAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_random_choose"));
         //String jtmmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jtmmr"));
         
-        String jlmlmrAbstractText="";
-        String singlemrAbstractText="" ;
-        String randomChooseAbstractText="";
-        String jtmmrAbstractText=""; 
-        //构造info
-        Info info = new Info();
+        String qewmAbstractText=StringUtils.join(qewm_list,'\n');
+        String qewmvAbstractText=StringUtils.join(qewmv_list,'\n');
+        String leadChooseAbstractText=StringUtils.join(lead_list,'\n');; 
+        String randomChooseAbstractText=StringUtils.join(random_list,'\n');
+          
         if (testOrNot == false) { //system
-            ArrayList<String> time_sentence_filterSentence=null;
             info.time_stamp = nowTime;
-            info.ori_sentence = getContent(time_sentence_filterSentence, 1);
-            info.jlmlmr = jlmlmrAbstractText;
-            info.jlmlmr_abs = jtmmrAbstractText;
-            info.singlemr = singlemrAbstractText;
+            info.ori_sentence = "";
+            info.jlmlmr = qewmAbstractText;
+            info.jlmlmr_abs = qewmvAbstractText;
+            info.singlemr = leadChooseAbstractText;
             info.random_choose = randomChooseAbstractText;
-            info.filter_sentence = getContent(time_sentence_filterSentence, 2);
-            ArrayList<String> topic_words = getTopicWords(FileDirectory.filePathJoin(null, "U100_1_0.txt"), FileDirectory.filePathJoin(FileDirectory.filePathJoin(null, "JLMLMR_running"), "wordmap_input_1.txt"), 30);
-            info.topic_words = topic_words.get(0);
+            info.filter_sentence = "";
+            info.topic_words = "";
             info.search_query = "";
             info.urls = "";
-            info.topic_words_score = topic_words.get(1);
+            info.topic_words_score ="";
         }
         else { //test
             info.time_stamp = nowTime;
@@ -185,7 +193,6 @@ public class InputController {
             info.topic_words_score = "0.9 0.8\n0.8\n1.0 0.2\n0.5 0.88";
         }
         result.status = true;
-        result.info = info;
         System.out.println("done commonWork");
         return result;
     }

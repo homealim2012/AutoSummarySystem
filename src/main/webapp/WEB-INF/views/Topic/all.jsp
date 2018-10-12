@@ -26,7 +26,7 @@
 
         <section>
             <div class="bl-box">
-                <h2 class="bl-icon bl-icon-blog">SingleMR</h2>
+                <h2 class="bl-icon bl-icon-blog">首句抽取</h2>
             </div>
             <div class="bl-content">
                 <jsp:include page="singlemr.jsp"/>
