@@ -6,11 +6,11 @@ import nlp.util.Sentence;
 
 public class StopWords {
 	
-	public final static String ChineseSentenceSplitPunc = "！？。，：；";
+	public final static String ChineseSentenceSplitPunc = "！？。，：；　";
 	public final static String ChineseDeletePunc = "＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
 	public final static String ChinesePunc = "！？。，、：；＃＄％＆＊＋－／＜＝＞＠＼＾＿℃｀｜～《》「」『』【】〔〕〖〗–—…＂＇（）［］｛｝〃〝〞‘’“”";
 	public final static String EnglishSentenceSplitPunc = "!,.?:;";
-	public final static String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'";
+	public final static String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'" ;
 	public final static String EnglishPunc="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 	public final static String[] EnglishStopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", 
 			"you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", 

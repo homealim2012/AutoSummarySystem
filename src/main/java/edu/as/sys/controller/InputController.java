@@ -10,7 +10,8 @@ import edu.as.sys.common.FileDirectory;
 import edu.as.sys.common.FileIO;
 import edu.as.sys.common.ResponseResult;
 
-import org.apache.tomcat.util.buf.StringUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -144,20 +145,23 @@ public class InputController {
         List<String> qewmv_list=new ArrayList<String>();
         List<String> random_list=new ArrayList<String>();
         List<String> lead_list=new ArrayList<String>();
-        List<String> filter_list=new ArrayList<String>();
+
+        NLP n=new NLP();
         //调用shell命令，执行JLTMMR
         if (testOrNot == false) {
         	try {
-        		qewm_list=NLP.run(sourceList,NLP.type_ori);
-				qewmv_list=NLP.run(sourceList,NLP.type_mani);
-				random_list=NLP.run(sourceList, NLP.type_random);
-				lead_list=NLP.run(sourceList, NLP.type_lead);
+                n.run(sourceList,keyword);
+        	
 			} catch (MWException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
         }
-        
+    	qewm_list=n.getOriSentences();
+		qewmv_list=n.getManiSentences();
+		random_list=n.getRandomSentences();
+		lead_list=n.getLeadSentences();
+        List<String> filter_list=n.getLeadSentences();
         //读取output
         //String jlmlmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jltmmr"));
         //String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));
@@ -177,10 +181,10 @@ public class InputController {
             info.singlemr = leadChooseAbstractText;
             info.random_choose = randomChooseAbstractText;
             info.filter_sentence = filterSentenceText;
-            info.topic_words = "";
+            info.topic_words = getTopicWordsStr(n.getWordList());
             info.search_query = keyword;
             info.urls = "";
-            info.topic_words_score ="";
+            info.topic_words_score =getTopicWordScore(n.getMeanTopic(),n.getVarTopic(),n.getMeanVarTopic());
         }
         else { //test
             info.time_stamp = nowTime;
@@ -433,5 +437,24 @@ public class InputController {
             }
         }
         return abstractText;
+    }
+    public String getTopicWordsStr(String[] WordList){
+       StringBuilder res=new StringBuilder();
+       for(int i=0;i<3;i++)
+       {
+    	 if(i>0)
+    		 res.append("\n");
+    	 res.append(String.join(" ", WordList));
+       }
+       return res.toString();
+    }
+    public String getTopicWordScore(double[] MeanTopic,double[] VarTopic,double[] MeanVarTopic){
+    	StringBuilder res=new StringBuilder();
+    	res.append(StringUtils.join(ArrayUtils.toObject(MeanTopic), " "));
+    	res.append("\n");
+    	res.append(StringUtils.join(ArrayUtils.toObject(VarTopic), " "));
+    	res.append("\n");
+    	res.append(StringUtils.join(ArrayUtils.toObject(MeanVarTopic), " "));
+    	return res.toString();
     }
 }

@@ -4,14 +4,19 @@
 package edu.buaa.edu.wordsimilarity;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.tomcat.util.buf.StringUtils;
 
 /**
  * 该类为此项目的主要文件，提供计算词语相似度的一些基本公式，都为静态。
@@ -81,7 +86,7 @@ public class WordSimilarity {
         String line = null;
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("src/main/resources/dict/glossary.dat"));
+            reader =new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/dict/glossary.dat"), Charset.forName("GBK")));
             line = reader.readLine();
             while (line != null) {
                 // parse the line
@@ -238,6 +243,8 @@ public class WordSimilarity {
      * 计算两个词语的相似度
      */
     public static double simWord(String word1, String word2) {
+    	if(word1.equals(word2))
+    		return 1;
         if (ALLWORDS.containsKey(word1) && ALLWORDS.containsKey(word2)) {
             List<Word> list1 = ALLWORDS.get(word1);
             List<Word> list2 = ALLWORDS.get(word2);
@@ -250,7 +257,7 @@ public class WordSimilarity {
             }
             return max;
         }
-        System.out.println("其中有词没有被收录");
+        //System.out.println("其中有词没有被收录");
         return 0.0;
     }
 
@@ -463,7 +470,9 @@ public class WordSimilarity {
         for (String name : set) {
             System.out.println(name);
         }
-        double simval=simWord("中国","联合国");
+        double simval=simWord("中卫","足球");
         System.out.println(simval);
+        //System.out.println(String.join(" ", (Object[])new int []{2,3,4}));
+        //System.out.println();
     }
 }

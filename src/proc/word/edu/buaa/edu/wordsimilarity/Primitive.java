@@ -4,7 +4,10 @@
 package edu.buaa.edu.wordsimilarity;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +36,9 @@ public class Primitive {
         String line = null;
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(
-                    "src/main/resources/dict/WHOLE.DAT"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader
+            		(new FileInputStream("src/main/resources/dict/WHOLE.DAT"), 
+            		Charset.forName("GBK")));
             line = reader.readLine();
 
             while (line != null) {
