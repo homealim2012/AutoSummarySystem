@@ -161,7 +161,7 @@ public class InputController {
 		qewmv_list=n.getManiSentences();
 		random_list=n.getRandomSentences();
 		lead_list=n.getLeadSentences();
-        List<String> filter_list=n.getLeadSentences();
+        List<String> filter_list=n.getDstSentences();
         //读取output
         //String jlmlmrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_jltmmr"));
         //String singlemrAbstractText = readOutput(FileDirectory.filePathJoin(runningDir, "output_singlemr"));

@@ -3,13 +3,15 @@ package nlp.word.stopword;
 import java.util.List;
 
 import nlp.util.Sentence;
+import java.util.regex.Pattern; 
+import java.util.regex.Matcher;
 
 public class StopWords {
 	
 	public final static String ChineseSentenceSplitPunc = "！？。，：；　";
 	public final static String ChineseDeletePunc = "＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
 	public final static String ChinesePunc = "！？。，、：；＃＄％＆＊＋－／＜＝＞＠＼＾＿℃｀｜～《》「」『』【】〔〕〖〗–—…＂＇（）［］｛｝〃〝〞‘’“”";
-	public final static String EnglishSentenceSplitPunc = "!,.?:;";
+	public final static String EnglishSentenceSplitPunc = "!,.?:; ";
 	public final static String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'" ;
 	public final static String EnglishPunc="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 	public final static String[] EnglishStopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", 
@@ -83,6 +85,16 @@ public class StopWords {
 			K:for(int i=0;i<words.size();)
             {
             	String word=words.get(i);
+            	if("".equals(word))
+            	{
+            		words.remove(i);
+            		continue;
+            	}
+            	if(isNumeric(word))
+            	{
+            		words.remove(i);
+            		continue;
+            	}
             	if(ChineseSentenceSplitPunc.contains(word)
             		||ChineseDeletePunc.contains(word)
             		||ChinesePunc.contains(word)
@@ -112,5 +124,14 @@ public class StopWords {
             	i++;	
             }
 		}
+	}
+	
+	public static boolean isNumeric(String str){ 
+	   Pattern pattern = Pattern.compile("[0-9]+"); 
+	   Matcher isNum = pattern.matcher(str);
+	   if( !isNum.matches() ){
+	       return false; 
+	   } 
+	   return true; 
 	}
 }

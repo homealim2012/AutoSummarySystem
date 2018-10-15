@@ -74,6 +74,13 @@ public class NLP {
 		return RandomSentences;
 	}
 	
+	public List<String> getDstSentences(){
+		List<String> res=new ArrayList<String>();
+		for(Sentence s:Sentences){
+			res.add(s.dst_sentence);
+		}
+		return res;
+	}
 	public class WordSim{
 		public String ori;
 		public String dst;
