@@ -26,83 +26,10 @@
             htmlContent += "\n";
         }
         htmlContent += "<li style='font-size: 30px;'>" +
-                            "<a onclick='clickSentence("+i+", 1)'>" +
-                                "<img id='up_sentence_"+i+"' src='"+upImgSrc+"' height='30' width='30'/>" +
-                            "</a>" +
-                            "<a onclick='clickSentence("+i+", -1)'>" +
-                                "<img id='down_sentence_"+i+"' src='"+downImgSrc+"' height='30' width='30'/>" +
-                            "</a>" +
+                           (i+1) +"、"+
                             sentences[i] +
                         "</li>";
     }
     document.getElementById('abstract_jltmmr').innerHTML = htmlContent;
 
-    for (var i=0; i<sentences.length; i++) {
-        //change image
-        if (zanCaiSentenceStatus[i] == 0) {
-            document.getElementById("up_sentence_" + i).src = upImgSrc;
-            document.getElementById("down_sentence_" + i).src = downImgSrc;
-        }
-        else if (zanCaiSentenceStatus[i] == -1) {
-            document.getElementById("up_sentence_" + i).src = upImgSrc;
-            document.getElementById("down_sentence_" + i).src = down2ImgSrc;
-        }
-        else if (zanCaiSentenceStatus[i] == 1) {
-            document.getElementById("up_sentence_" + i).src = up2ImgSrc;
-            document.getElementById("down_sentence_" + i).src = downImgSrc;
-        }
-    }
-
-    function clickSentence(sentenceIndex, value) {
-        // getNowStatus
-        var nowStatus = zanCaiSentenceStatus[sentenceIndex]; //0 means no, 1 means zan, -1 means cai
-
-        var feedbackStatus = 2; //1 should, 0 should not, 2 maybe
-        if (value == 1) { //zan
-            if (nowStatus == 0) {
-                feedbackStatus = 1;
-                document.getElementById("up_sentence_" + sentenceIndex).src = up2ImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = 1;
-            }
-            else if (nowStatus == -1) {
-                feedbackStatus = 1;
-                document.getElementById("up_sentence_" + sentenceIndex).src = up2ImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = 1;
-            }
-            else  if (nowStatus == 1) { //cancel zan
-                feedbackStatus = 2;
-                document.getElementById("up_sentence_" + sentenceIndex).src = upImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = 0;
-            }
-            document.getElementById("down_sentence_" + sentenceIndex).src = downImgSrc; //change image
-        }
-        else if (value == -1) { //cai
-            if (nowStatus == 0) {
-                feedbackStatus = 0;
-                document.getElementById("down_sentence_" + sentenceIndex).src = down2ImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = -1;
-            }
-            else if (nowStatus == -1) { //cancel cai
-                feedbackStatus = 2;
-                document.getElementById("down_sentence_" + sentenceIndex).src = downImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = 0;
-            }
-            else  if (nowStatus == 1) {
-                feedbackStatus = 0;
-                document.getElementById("down_sentence_" + sentenceIndex).src = down2ImgSrc; //change image
-                zanCaiSentenceStatus[sentenceIndex] = -1;
-            }
-            document.getElementById("up_sentence_" + sentenceIndex).src = upImgSrc; //change image
-        }
-        // ajax click
-        $.ajax({
-            url: "<%=basePath%>/Input/sentence_feedback",
-            type: "post",
-            async: true,
-            data: {"sentence": sentences[sentenceIndex], "feedback_status": feedbackStatus},
-            //dataType:'text',
-            success: function(data){
-            }
-        });
-    }
 </script>

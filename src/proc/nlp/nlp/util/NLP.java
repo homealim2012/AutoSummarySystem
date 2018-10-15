@@ -94,8 +94,8 @@ public class NLP {
     	Convert.setOrder(Sentences);
     	calWordSet();
     	calWordSim();
-    	ManiSentences=getMatlabSentence(Sentences,type_mani);
     	OriSentences=getMatlabSentence(Sentences,type_ori);
+    	ManiSentences=getMatlabSentence(Sentences,type_mani);
     	LeadSentences=getLeadSentence(Sentences);
     	RandomSentences=getRandomSentence(Sentences);	
     }
@@ -153,7 +153,7 @@ public class NLP {
     		final int run_type)throws MWException{
     	MWStructArray mw_sentence=Convert.getMatlabStructArray(Sentences, Sentence.class);
     	TextMiner tm=new TextMiner();
-    	Object[] res_obj=tm.TextMining(1, mw_sentence,run_type);
+    	Object[] res_obj=tm.TextMining(5, mw_sentence,run_type);
     	MWCellArray mwss=(MWCellArray)res_obj[0];	
     	List<String> SummarySentences=new ArrayList<>();
     	for(int i=1;i<=mwss.numberOfElements();i++)
@@ -178,23 +178,26 @@ public class NLP {
     }
     public void setMeanTopic(Object obj){
     	MWArray mwa=(MWArray)obj;
+    	this.MeanTopic=new double[mwa.numberOfElements()];
     	for(int i=1;i<=mwa.numberOfElements();i++)
     	{
-    		MeanTopic[i-1]=(double)mwa.get(i);
+    		MeanTopic[i-1]=(Double)mwa.get(i);
     	}
     }
     public void setVarTopic(Object obj){
     	MWArray mwa=(MWArray)obj;
+    	this.VarTopic=new double[mwa.numberOfElements()];
     	for(int i=1;i<=mwa.numberOfElements();i++)
     	{
-    		VarTopic[i-1]=(double)mwa.get(i);
+    		VarTopic[i-1]=(Double)mwa.get(i);
     	}
     }
     public void setMeanVarTopic(Object obj){
     	MWArray mwa=(MWArray)obj;
+    	this.MeanVarTopic=new double[mwa.numberOfElements()];
     	for(int i=1;i<=mwa.numberOfElements();i++)
     	{
-    		MeanVarTopic[i-1]=(double)mwa.get(i);
+    		MeanVarTopic[i-1]=(Double)mwa.get(i);
     	}
     }
     public List<String> getRandomSentence(List<Sentence> list){

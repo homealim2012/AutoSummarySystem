@@ -14,7 +14,7 @@
         if (htmlContent.length > 0) {
             htmlContent += "\n";
         }
-        htmlContent += "<li style='font-size: 30px;'>" +
+        htmlContent += "<li style='font-size: 30px;'>" + (i+1) +"、"+
                     sentences[i] +
                     "</li>";
     }
