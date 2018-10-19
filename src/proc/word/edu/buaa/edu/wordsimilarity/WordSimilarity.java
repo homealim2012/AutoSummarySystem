@@ -31,27 +31,27 @@ public class WordSimilarity {
     /**
      * sim(p1,p2) = alpha/(d+alpha)
      */
-    private static double alpha = 1.6;
+    private static double alpha = 1;
     /**
      * 计算实词的相似度，参数，基本义原权重
      */
-    private static double beta1 = 0.5;
+    private static double beta1 = 0.05;
     /**
      * 计算实词的相似度，参数，其他义原权重
      */
-    private static double beta2 = 0.2;
+    private static double beta2 = 0.05;
     /**
      * 计算实词的相似度，参数，关系义原权重
      */
-    private static double beta3 = 0.17;
+    private static double beta3 = 0.5;
     /**
      * 计算实词的相似度，参数，关系符号义原权重
      */
-    private static double beta4 = 0.13;
+    private static double beta4 = 0.5;
     /**
      * 具体词与义原的相似度一律处理为一个比较小的常数. 具体词和具体词的相似度，如果两个词相同，则为1，否则为0.
      */
-    private static double gamma = 0.2;
+    private static double gamma = 0.1;
     /**
      * 将任一非空值与空值的相似度定义为一个比较小的常数
      */
@@ -171,8 +171,7 @@ public class WordSimilarity {
             if (type == 0) {
                 // 之前有一个关系义原
                 if (isRelational) {
-                    word
-                            .addRelationalPrimitive(relationalPrimitiveKey,
+                    word.addRelationalPrimitive(relationalPrimitiveKey,
                                     chinese);
                     continue;
                 }
@@ -184,6 +183,7 @@ public class WordSimilarity {
                 if (isFirst) {
                     word.setFirstPrimitive(chinese);
                     isFirst = false;
+                    word.addOtherPrimitive(chinese);
                     continue;
                 } else {
                     word.addOtherPrimitive(chinese);
@@ -196,6 +196,7 @@ public class WordSimilarity {
                 isRelational = false;
                 simbolKey = Character.toString(strs[0].charAt(0));
                 word.addRelationSimbolPrimitive(simbolKey, chinese);
+                word.addOtherPrimitive(chinese);
                 continue;
             }
             if (type == 2) {
@@ -294,18 +295,12 @@ public class WordSimilarity {
             Map<String, List<String>> map2 = w2.getRelationalPrimitives();
             double sim3 = simMap(map1, map2);
             // 关系符号相似度
-            map1 = w1.getRelationSimbolPrimitives();
-            map2 = w2.getRelationSimbolPrimitives();
-            double sim4 = simMap(map1, map2);
-            double product = sim1;
-            double sum = beta1 * product;
-            product *= sim2;
-            sum += beta2 * product;
-            product *= sim3;
-            sum += beta3 * product;
-            product *= sim4;
-            sum += beta4 * product;
-            return sum;
+            Map<String, List<String>> map3 = w1.getRelationSimbolPrimitives();
+            Map<String, List<String>> map4 = w2.getRelationSimbolPrimitives();
+            double sim4 = simMap(map3, map4);
+            
+            double sim=Math.max(sim2, Math.max(sim3,sim4));
+            return sim;
         }
         return 0.0;
     }
@@ -320,21 +315,19 @@ public class WordSimilarity {
     public static double simMap(Map<String, List<String>> map1,
             Map<String, List<String>> map2) {
         if (map1.isEmpty() && map2.isEmpty()) {
-            return 1;
+            return 0;
         }
-        int total =map1.size() + map2.size();
         double sim = 0;
-        int count = 0;
         for (String key : map1.keySet()) {
             if (map2.containsKey(key)) {
                 List<String> list1 = map1.get(key);
                 List<String> list2 = map2.get(key);
-                sim += simList(list1, list2);
-                count++;
+                double tempsim=simList(list1, list2);
+                if(tempsim>sim)
+                   sim=tempsim;
             }
         }
-        return (sim + delta * (total-2*count))
-                / (total-count);
+        return sim;
     }
 
     /**
@@ -346,33 +339,17 @@ public class WordSimilarity {
      */
     public static double simList(List<String> list1, List<String> list2) {
         if (list1.isEmpty() && list2.isEmpty())
-            return 1;
-        int m = list1.size();
-        int n = list2.size();
-        int big = m > n ? m : n;
-        int N = (m < n) ? m : n;
-        int count = 0;
-        int index1 = 0, index2 = 0;
-        double sum = 0;
-        double max = 0;
-        while (count < N) {
-            max = 0;
-            for (int i = 0; i < list1.size(); i++) {
-                for (int j = 0; j < list2.size(); j++) {
-                    double sim = innerSimWord(list1.get(i), list2.get(j));
-                    if (sim > max) {
-                        index1 = i;
-                        index2 = j;
-                        max = sim;
-                    }
+            return 0;
+        double max_sim = 0;
+        for (int i = 0; i < list1.size(); i++) {
+            for (int j = 0; j < list2.size(); j++) {
+                double sim = innerSimWord(list1.get(i), list2.get(j));
+                if (sim > max_sim) {
+                     max_sim = sim;
                 }
-            }
-            sum += max;
-            list1.remove(index1);
-            list2.remove(index2);
-            count++;
-        }
-        return (sum + delta * (big - N)) / big;
+             }
+         }
+        return max_sim;
     }
 
     /**
@@ -391,7 +368,7 @@ public class WordSimilarity {
         // 具体词
         if (!isPrimitive1 && !isPrimitive2) {
             if (word1.equals(word2))
-                return 1;
+                return 0.8;
             else
                 return 0;
         }
@@ -423,7 +400,7 @@ public class WordSimilarity {
             int id1 = list1.get(i);
             if (list2.contains(id1)) {
                 int index = list2.indexOf(id1);
-                return index + i;
+                return index + i + 1;
             }
         }
         return DEFAULT_PRIMITIVE_DIS;
@@ -470,7 +447,7 @@ public class WordSimilarity {
         for (String name : set) {
             System.out.println(name);
         }
-        double simval=simWord("中卫","足球");
+        double simval=simWord("体育","足球");
         System.out.println(simval);
         //System.out.println(String.join(" ", (Object[])new int []{2,3,4}));
         //System.out.println();
