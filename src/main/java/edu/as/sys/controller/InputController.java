@@ -4,6 +4,7 @@ import edu.as.sys.model.DBOperation;
 import edu.as.sys.model.Info;
 import edu.as.sys.model.News;
 import nlp.util.NLP;
+import nlp.util.NLP.Result;
 import tmfst.textCrawler.CommentCrawler;
 import tmfst.textCrawler.XinlangNewsCrawler;
 import edu.as.sys.common.FileDirectory;
@@ -181,10 +182,10 @@ public class InputController {
             info.singlemr = leadChooseAbstractText;
             info.random_choose = randomChooseAbstractText;
             info.filter_sentence = filterSentenceText;
-            info.topic_words = getTopicWordsStr(n.getWordList());
+            info.topic_words = getTopicWordsStr(n.getResult());
             info.search_query = keyword;
             info.urls = "";
-            info.topic_words_score =getTopicWordScore(n.getMeanTopic(),n.getVarTopic(),n.getMeanVarTopic());
+            info.topic_words_score =getTopicWordScore(n.getResult());
         }
         else { //test
             info.time_stamp = nowTime;
@@ -438,23 +439,25 @@ public class InputController {
         }
         return abstractText;
     }
-    public String getTopicWordsStr(String[] WordList){
+    public String getTopicWordsStr(Result result){
        StringBuilder res=new StringBuilder();
-       for(int i=0;i<3;i++)
+       for(int i=0;i<4;i++)
        {
     	 if(i>0)
     		 res.append("\n");
-    	 res.append(String.join(" ", WordList));
+    	 res.append(String.join(" ", result.getWordlist()));
        }
        return res.toString();
     }
-    public String getTopicWordScore(double[] MeanTopic,double[] VarTopic,double[] MeanVarTopic){
+    public String getTopicWordScore(Result result){
     	StringBuilder res=new StringBuilder();
-    	res.append(StringUtils.join(ArrayUtils.toObject(MeanTopic), " "));
+    	res.append(StringUtils.join(ArrayUtils.toObject(result.getSim_word_topic()), " "));
     	res.append("\n");
-    	res.append(StringUtils.join(ArrayUtils.toObject(VarTopic), " "));
+    	res.append(StringUtils.join(ArrayUtils.toObject(result.getMean_topic()), " "));
     	res.append("\n");
-    	res.append(StringUtils.join(ArrayUtils.toObject(MeanVarTopic), " "));
+    	res.append(StringUtils.join(ArrayUtils.toObject(result.getVar_topic()), " "));
+    	res.append("\n");
+    	res.append(StringUtils.join(ArrayUtils.toObject(result.getMean_var_topic()), " "));
     	return res.toString();
     }
 }

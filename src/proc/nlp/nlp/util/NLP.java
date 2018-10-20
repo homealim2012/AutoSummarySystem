@@ -37,29 +37,17 @@ public class NLP {
 	
 	private List<String> RandomSentences=new ArrayList<>();
 	
-	private String[] WordList=new String[0];
-	
-	private double[] MeanTopic=new double[0];
-	
-	private double[] VarTopic=new double[0];
-	
-	private double[] MeanVarTopic=new double[0];
-	
 	private Set<String> WordSet=new HashSet<String>(); 
 	
 	private List<WordSim> WordSimList=new ArrayList<>();
 	
-    public String[] getWordList() {
-		return WordList;
+	private Result result=new Result();
+	
+	public Result getResult() {
+		return result;
 	}
-	public double[] getMeanTopic() {
-		return MeanTopic;
-	}
-	public double[] getVarTopic() {
-		return VarTopic;
-	}
-	public double[] getMeanVarTopic() {
-		return MeanVarTopic;
+	public void setResult(Result result) {
+		this.result = result;
 	}
 	public List<String> getManiSentences() {
 		return ManiSentences;
@@ -73,7 +61,68 @@ public class NLP {
 	public List<String> getRandomSentences() {
 		return RandomSentences;
 	}
-	
+	public class Result{
+		
+		public String[] res_sentences=new String[0];
+		
+		public String[] wordlist=new String[0];
+		
+		public double[] sim_word_topic= new double[0];
+		
+		public double[] mean_topic=new double[0];
+		
+		public double[] var_topic=new double[0];
+		
+		public double[] mean_var_topic=new double[0];
+		
+		public String[] getRes_sentences() {
+			return res_sentences;
+		}
+
+		public void setRes_sentences(String[] res_sentences) {
+			this.res_sentences = res_sentences;
+		}
+
+		public String[] getWordlist() {
+			return wordlist;
+		}
+
+		public void setWordlist(String[] wordlist) {
+			this.wordlist = wordlist;
+		}
+
+		public double[] getSim_word_topic() {
+			return sim_word_topic;
+		}
+
+		public void setSim_word_topic(double[] sim_word_topic) {
+			this.sim_word_topic = sim_word_topic;
+		}
+
+		public double[] getMean_topic() {
+			return mean_topic;
+		}
+
+		public void setMean_topic(double[] mean_topic) {
+			this.mean_topic = mean_topic;
+		}
+
+		public double[] getVar_topic() {
+			return var_topic;
+		}
+
+		public void setVar_topic(double[] var_topic) {
+			this.var_topic = var_topic;
+		}
+
+		public double[] getMean_var_topic() {
+			return mean_var_topic;
+		}
+
+		public void setMean_var_topic(double[] mean_var_topic) {
+			this.mean_var_topic = mean_var_topic;
+		}	
+	}
 	public List<String> getDstSentences(){
 		List<String> res=new ArrayList<String>();
 		for(Sentence s:Sentences){
@@ -123,7 +172,7 @@ public class NLP {
 			for(String word:WordSet)
 			{
 				double sim_word_val=WordSimilarity.simWord(topicWord,word);
-				if(sim_word_val>=0.1)
+				if(sim_word_val>=0.2)
 				{
 					WordSim sim=new WordSim();
 					WordSimList.add(sim);
@@ -159,54 +208,25 @@ public class NLP {
     public List<String> getMatlabSentence(List<Sentence> Sentences,
     		final int run_type)throws MWException{
     	MWStructArray mw_sentence=Convert.getMatlabStructArray(Sentences, Sentence.class);
+    	MWStructArray sim_word_list=Convert.getMatlabStructArray(this.WordSimList, WordSim.class);
     	TextMiner tm=new TextMiner();
-    	Object[] res_obj=tm.TextMining(5, mw_sentence,run_type);
-    	MWCellArray mwss=(MWCellArray)res_obj[0];	
+    	Object[] res_obj=tm.TextMining(1, mw_sentence,run_type,sim_word_list);
+    	List<Result> result=Convert.getJavaObjFromMatlabStructArray(res_obj[0],Result.class);	
     	List<String> SummarySentences=new ArrayList<>();
-    	for(int i=1;i<=mwss.numberOfElements();i++)
+    	if(result.size()>0)
     	{
-    		SummarySentences.add(mwss.getCell(i).toString());
-    		System.out.println(mwss.getCell(i).toString());
+    		Result res=result.get(0);
+    		this.result=res;
+    		for(int i=1;i<=res.res_sentences.length;i++)
+    		{
+    			SummarySentences.add(res.res_sentences[i]);
+    			System.out.println(res.res_sentences[i].toString());
+    		}
     	}
-    	setWordList(res_obj[1]);
-    	setMeanTopic(res_obj[2]);
-    	setVarTopic(res_obj[3]);
-    	setMeanVarTopic(res_obj[4]);
     	return SummarySentences;
     }
     
-    public void setWordList(Object obj){
-    	MWCellArray mwss=(MWCellArray)obj;	
-    	this.WordList=new String[mwss.numberOfElements()];
-    	for(int i=1;i<=mwss.numberOfElements();i++)
-    	{
-    	   WordList[i-1]=mwss.getCell(i).toString();	
-    	}
-    }
-    public void setMeanTopic(Object obj){
-    	MWArray mwa=(MWArray)obj;
-    	this.MeanTopic=new double[mwa.numberOfElements()];
-    	for(int i=1;i<=mwa.numberOfElements();i++)
-    	{
-    		MeanTopic[i-1]=(Double)mwa.get(i);
-    	}
-    }
-    public void setVarTopic(Object obj){
-    	MWArray mwa=(MWArray)obj;
-    	this.VarTopic=new double[mwa.numberOfElements()];
-    	for(int i=1;i<=mwa.numberOfElements();i++)
-    	{
-    		VarTopic[i-1]=(Double)mwa.get(i);
-    	}
-    }
-    public void setMeanVarTopic(Object obj){
-    	MWArray mwa=(MWArray)obj;
-    	this.MeanVarTopic=new double[mwa.numberOfElements()];
-    	for(int i=1;i<=mwa.numberOfElements();i++)
-    	{
-    		MeanVarTopic[i-1]=(Double)mwa.get(i);
-    	}
-    }
+
     public List<String> getRandomSentence(List<Sentence> list){
     	int[] index=MyRandom.getRandoms(1, list.size()-1,25);
     	List<String> res=new ArrayList<String>();

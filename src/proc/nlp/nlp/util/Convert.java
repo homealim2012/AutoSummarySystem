@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.mockito.internal.util.reflection.Fields;
 
+import com.mathworks.toolbox.javabuilder.MWArray;
+import com.mathworks.toolbox.javabuilder.MWCellArray;
 import com.mathworks.toolbox.javabuilder.MWStructArray;
 
 public class Convert {
@@ -37,6 +39,52 @@ public class Convert {
         	 }
     	 }
     	 return mwsa;
+     }
+     public static <T> List<T> getJavaObjFromMatlabStructArray(Object obj,Class<T> clz){
+    	 if(obj.getClass()!=MWStructArray.class)
+    		 return null;
+    	 try {
+    		List<T> res=new ArrayList<T>();
+    		MWStructArray mws=(MWStructArray)obj;
+    		for(int i=0;i<mws.numberOfElements();i++)
+    		{			
+    			T t=clz.newInstance();
+    			Field[] fs=clz.getFields();
+    			for(Field f:fs){
+    			   if(f.getType()==String[].class)
+    			   {
+    			      f.set(t, getJavaStringArray(mws.get(f.getName(), i+1)));
+    			   }
+    			   else if(f.getType()==double[].class){
+    				  f.set(t, getJavaDoubleArray(mws.get(f.getName(), i+1)));
+    			   }
+    			}
+    			res.add(t);
+    		}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+    	return null;
+     }
+     
+     public static String[] getJavaStringArray(Object obj){
+     	MWCellArray mwss=(MWCellArray)obj;
+     	String[] res=new String[mwss.numberOfElements()];
+     	for(int i=1;i<=mwss.numberOfElements();i++)
+     	{
+     	   res[i-1]=mwss.getCell(i).toString();	
+     	}
+     	return res;
+     }
+     public static double[] getJavaDoubleArray(Object obj){
+     	MWArray mwa=(MWArray)obj;
+     	double[] res=new double[mwa.numberOfElements()];
+     	for(int i=1;i<=mwa.numberOfElements();i++)
+     	{
+     		res[i-1]=(Double)mwa.get(i);
+     	}
+     	return res;
      }
      public static <T> String[] getFieldsStr(Class<T> clz)
      {
@@ -75,13 +123,8 @@ public class Convert {
     	 }
      }
      public static void main(String[] args){
-    	 List<Sentence> list=new ArrayList<>();
-    	 list.add(new Sentence());
-    	 list.add(new Sentence());
-    	 list.get(1).dst_sentence="222 332";
-    	 list.get(1).order=200;
-    	 MWStructArray mwsa=getMatlabStructArray(list,Sentence.class);
-    	 System.out.println(mwsa.getField("order", 2));
+         double[] a=new double[4];
+    	 System.out.println(a.getClass()==double[].class);
      }
      
 }
