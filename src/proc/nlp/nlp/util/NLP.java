@@ -61,7 +61,7 @@ public class NLP {
 	public List<String> getRandomSentences() {
 		return RandomSentences;
 	}
-	public class Result{
+	public static class Result{
 		
 		public String[] res_sentences=new String[0];
 		
@@ -213,11 +213,11 @@ public class NLP {
     	Object[] res_obj=tm.TextMining(1, mw_sentence,run_type,sim_word_list);
     	List<Result> result=Convert.getJavaObjFromMatlabStructArray(res_obj[0],Result.class);	
     	List<String> SummarySentences=new ArrayList<>();
-    	if(result.size()>0)
+    	if(result!=null && result.size()>0)
     	{
     		Result res=result.get(0);
     		this.result=res;
-    		for(int i=1;i<=res.res_sentences.length;i++)
+    		for(int i=0;i<res.res_sentences.length;i++)
     		{
     			SummarySentences.add(res.res_sentences[i]);
     			System.out.println(res.res_sentences[i].toString());

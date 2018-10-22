@@ -53,14 +53,15 @@ public class Convert {
     			for(Field f:fs){
     			   if(f.getType()==String[].class)
     			   {
-    			      f.set(t, getJavaStringArray(mws.get(f.getName(), i+1)));
+    			      f.set(t, getJavaStringArray(mws.getField(f.getName(), i+1)));
     			   }
     			   else if(f.getType()==double[].class){
-    				  f.set(t, getJavaDoubleArray(mws.get(f.getName(), i+1)));
+    				  f.set(t, getJavaDoubleArray(mws.getField(f.getName(), i+1)));
     			   }
     			}
     			res.add(t);
     		}
+    		return res;
 		} catch (Exception e) {
 			
 			e.printStackTrace();
