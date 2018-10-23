@@ -53,7 +53,7 @@ public class InputController {
         sourceList.add(source);
         ResponseResult result = commonWork(sourceList, null,"");
         if (result.status == true) {
-            DBOperation.insertInfo(result.info);
+            //DBOperation.insertInfo(result.info);
         }
         else {
             result.msg = "文本摘要过短，请输入最少500个字";
