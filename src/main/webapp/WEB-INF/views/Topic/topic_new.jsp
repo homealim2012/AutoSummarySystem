@@ -27,12 +27,15 @@
         <div class="column">
             <li>
                 <canvas class="topic-item" id="stopic_0" width="600" height="300"></canvas><div class="line">
-                <div align="left" style="float:left;">
+                <div align="left" style="float:left;display:none">
                     <a onclick="clickTopic(0, 1)">
                         <img id="up_stopic_0" src="resources/image/up.png" height="45" width="45"/>
                     </a>
                 </div>
-                <div align="right">
+                <div align="center">
+                     <a><font size="5">中心句词义扩展</font></a>
+                </div>
+                <div align="right" style="display:none">
                     <a onclick="clickTopic(0, -1)">
                         <img id="down_stopic_0" src="resources/image/down.png" height="45" width="45"/>
                     </a>
@@ -40,12 +43,15 @@
             </li>
             <li>
                 <canvas class="topic-item" id="stopic_1" width="600" height="300"></canvas><div class="line">
-                <div align="left" style="float:left;">
+                <div align="left" style="float:left;display:none">
                     <a onclick="clickTopic(1, 1)">
                         <img id="up_stopic_1" src="resources/image/up.png" height="45" width="45"/>
                     </a>
                 </div>
-                <div align="right">
+                <div align="center">
+                     <a><font size="5">中心句均值扩展</font></a>
+                </div>
+                <div align="right" style="display:none">
                     <a onclick="clickTopic(1, -1)">
                         <img id="down_stopic_1" src="resources/image/down.png" height="45" width="45"/>
                     </a>
@@ -55,25 +61,31 @@
         <div class="column">
             <li>
                 <canvas class="topic-item" id="stopic_2" width="600" height="300"></canvas><div class="line">
-                <div align="left" style="float:left;">
+                <div align="left" style="float:left;display:none">
                     <a onclick="clickTopic(2, 1)">
                         <img id="up_stopic_2" src="resources/image/up.png" height="45" width="45"/>
                     </a>
                 </div>
-                <div align="right">
-                    <a onclick="clickTopic(2, -1)">
+                <div align="center">
+                     <a><font size="5">中心句标准差扩展</font></a>
+                </div>
+                <div align="right" style="display:none">
+                    <a onclick="clickTopic(2, -1)" >
                         <img id="down_stopic_2" src="resources/image/down.png" height="45" width="45"/>
                     </a>
                 </div>
             </li>
             <li>
                 <canvas class="topic-item" id="stopic_3" width="600" height="300"></canvas><div class="line">
-                <div align="left" style="float:left;">
+                <div align="left" style="float:left;display:none">
                     <a onclick="clickTopic(3, 1)">
                         <img id="up_stopic_3" src="resources/image/up.png" height="45" width="45"/>
                     </a>
                 </div>
-                <div align="right">
+                 <div align="center">
+                     <a><font size="5">中心句词义均值标准差扩展</font></a>
+                </div>
+                <div align="right" style="display:none">
                     <a onclick="clickTopic(3, -1)">
                         <img id="down_stopic_3" src="resources/image/down.png" height="45" width="45"/>
                     </a>
@@ -95,13 +107,7 @@
         <canvas class='topic-item' id='stopic_9'></canvas>
         -->
     </div>
-    <div id="slider" class="sp-slider-wrapper">
-        <nav>
-            <a href="#" class="sp-prev">Previous</a>
-            <a href="#" class="sp-next">Next</a>
-        </nav>
-    </div>
-    <p id="pageNum" hidden="hidden">1</p>
+    
 
 </div>
 

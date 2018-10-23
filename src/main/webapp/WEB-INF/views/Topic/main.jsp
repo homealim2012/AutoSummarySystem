@@ -36,7 +36,7 @@
         <li class="pages-nav__item menu__item"><a class="menu__link link link--page" href="<%=basePath%>">首页</a></li>
         <li class="pages-nav__item menu__item menu__item--current"><a class="menu__link link link--page"
                                                                       href="#page-all">分析的摘要</a></li>
-        <li class="pages-nav__item menu__item"><a class="menu__link link link--page" href="#page-topic">查看主题</a></li>
+        <li class="pages-nav__item menu__item"><a class="menu__link link link--page" href="#page-topic">查看中心句</a></li>
         <li class="pages-nav__item menu__item"><a class="menu__link link link--page" href="#page-document">查看原始文档</a>
         </li>
         <li class="pages-nav__item menu__item"><a class="menu__link link link--page" href="#page-word">查看单词</a></li>
