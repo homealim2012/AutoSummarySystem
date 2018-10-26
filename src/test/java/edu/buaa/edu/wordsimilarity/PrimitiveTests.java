@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (C) 2008 SKLSDE(State Key Laboratory of Software Development and Environment, Beihang University)., All Rights Reserved.
  */
 package edu.buaa.edu.wordsimilarity;
@@ -19,7 +19,7 @@ public class PrimitiveTests extends TestCase {
      * test the method {@link Primitive#getParents(String)}.
      */
     public void test_getParents(){
-        String primitive = "¹¥´ò";
+        String primitive = "æ”»æ‰“";
         List<Integer> list = Primitive.getParents(primitive);
         for(Integer i : list){
             System.out.println(i);

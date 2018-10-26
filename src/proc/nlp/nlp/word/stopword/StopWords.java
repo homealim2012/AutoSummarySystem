@@ -9,9 +9,9 @@ import java.util.regex.Matcher;
 public class StopWords {
 	
 	public final static String ChineseSentenceSplitPunc = "！？。，：；　";
-	public final static String ChineseDeletePunc = "＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
+	public final static String ChineseDeletePunc = "•＃＄％＆＊＋－／＜＝＞＠＼＾＿｀｜～《》「」『』【】〔〕〖〗–—…";
 	public final static String ChinesePunc = "！？。，、：；＃＄％＆＊＋－／＜＝＞＠＼＾＿℃｀｜～《》「」『』【】〔〕〖〗–—…＂＇（）［］｛｝〃〝〞‘’“”";
-	public final static String EnglishSentenceSplitPunc = "!,.?:; ";
+	public final static String EnglishSentenceSplitPunc = "·!,.?:; ";
 	public final static String EnglishDeletePunc = "#$%&\\*+-/<=>@^_`|~'" ;
 	public final static String EnglishPunc="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 	public final static String[] EnglishStopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", 
@@ -30,7 +30,7 @@ public class StopWords {
 			"didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", "haven", "haven't",
 			"isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't", "needn", "needn't", "shan",
 			"shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't", "won", "won't", "wouldn",
-			"wouldn't"};
+			"wouldn't","&nbsp"};
 	public final static String[] ChineseStopwords={
 			"一","一些","一何","一切","一则","一方面","一旦","一来","一样","一般","一转眼","万一","上","上下","下","不",
 			"不仅","不但","不光","不单","不只","不外乎","不如","不妨","不尽","不尽然","不得","不怕","不惟","不成","不拘",

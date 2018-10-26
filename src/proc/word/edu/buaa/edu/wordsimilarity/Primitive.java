@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (C) 2008 SKLSDE(State Key Laboratory of Software Development and Environment, Beihang University)., All Rights Reserved.
  */
 package edu.buaa.edu.wordsimilarity;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ÒåÔ­
+ * ä¹‰åŸ
  * 
  * @author Yingqiang Wu
  * @version 1.0
@@ -30,7 +30,7 @@ public class Primitive {
      */
     public static Map<String, Integer> PRIMITIVESID = new HashMap<String, Integer>();
     /**
-     * ¼ÓÔØÒåÔ­ÎÄ¼ş¡£
+     * åŠ è½½ä¹‰åŸæ–‡ä»¶ã€‚
      */
     static {
         String line = null;
@@ -125,10 +125,10 @@ public class Primitive {
     }
 
     /**
-     * »ñµÃÒ»¸öÒåÔ­µÄËùÓĞ¸¸ÒåÔ­£¬Ö±µ½¶¥²ãÎ»ÖÃ¡£
+     * è·å¾—ä¸€ä¸ªä¹‰åŸçš„æ‰€æœ‰çˆ¶ä¹‰åŸï¼Œç›´åˆ°é¡¶å±‚ä½ç½®ã€‚
      * 
      * @param primitive
-     * @return Èç¹û²éÕÒµÄÒåÔ­Ã»ÓĞ²éÕÒµ½£¬Ôò·µ»ØÒ»¸ö¿Õlist
+     * @return å¦‚æœæŸ¥æ‰¾çš„ä¹‰åŸæ²¡æœ‰æŸ¥æ‰¾åˆ°ï¼Œåˆ™è¿”å›ä¸€ä¸ªç©ºlist
      */
     public static List<Integer> getParents(String primitive) {
         List<Integer> list = new ArrayList<Integer>();

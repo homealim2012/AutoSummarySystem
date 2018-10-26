@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (C) 2008 SKLSDE(State Key Laboratory of Software Development and Environment, Beihang University)., All Rights Reserved.
  */
 package edu.buaa.edu.wordsimilarity;
@@ -20,17 +20,17 @@ public class WordSimilarityTests extends TestCase {
      * test the method {@link WordSimilarity#disPrimitive(String, String)}.
      */
     public void test_disPrimitive(){
-        int dis = WordSimilarity.disPrimitive("¹ÍÓÃ", "Õù¶·");
-        System.out.println("¹ÍÓÃ and Õù¶· dis : "+ dis);
+        int dis = WordSimilarity.disPrimitive("é›‡ç”¨", "äº‰æ–—");
+        System.out.println("é›‡ç”¨ and äº‰æ–— dis : "+ dis);
     }
     
     public void test_simPrimitive(){
-        double simP = WordSimilarity.simPrimitive("¹ÍÓÃ", "Õù¶·");
-        System.out.println("¹ÍÓÃ and Õù¶· sim : "+ simP);
+        double simP = WordSimilarity.simPrimitive("é›‡ç”¨", "äº‰æ–—");
+        System.out.println("é›‡ç”¨ and äº‰æ–— sim : "+ simP);
     }
     public void test_simWord(){
-        String word1 = "Å£";
-        String word2 = "Öí";
+        String word1 = "ç‰›";
+        String word2 = "çŒª";
         double sim = WordSimilarity.simWord(word2, word1);
         System.out.println(sim);
     }

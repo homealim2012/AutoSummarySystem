@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (C) 2008 SKLSDE(State Key Laboratory of Software Development and Environment, Beihang University)., All Rights Reserved.
  */
 package edu.buaa.edu.wordsimilarity;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 /**
- * ´ú±íÒ»¸ö´Ê
+ * ä»£è¡¨ä¸€ä¸ªè¯
  *
  * @author Yingqiang Wu
  * @version 1.0
@@ -20,27 +20,27 @@ public class Word {
     private String type;
 
     /**
-     * µÚÒ»»ù±¾ÒåÔ­¡£
+     * ç¬¬ä¸€åŸºæœ¬ä¹‰åŸã€‚
      */
     private String firstPrimitive;
 
     /**
-     * ÆäËû»ù±¾ÒåÔ­¡£
+     * å…¶ä»–åŸºæœ¬ä¹‰åŸã€‚
      */
     private List<String> otherPrimitives = new ArrayList<String>();
 
     /**
-     * Èç¹û¸Ãlist·Ç¿Õ£¬Ôò¸Ã´ÊÊÇÒ»¸öĞé´Ê¡£ ÁĞ±íÀï´æ·ÅµÄÊÇ¸ÃĞé´ÊµÄÒ»¸öÒåÔ­£¬²¿·ÖĞé´ÊÎŞÖĞÎÄĞé´Ê½âÊÍ
+     * å¦‚æœè¯¥listéç©ºï¼Œåˆ™è¯¥è¯æ˜¯ä¸€ä¸ªè™šè¯ã€‚ åˆ—è¡¨é‡Œå­˜æ”¾çš„æ˜¯è¯¥è™šè¯çš„ä¸€ä¸ªä¹‰åŸï¼Œéƒ¨åˆ†è™šè¯æ— ä¸­æ–‡è™šè¯è§£é‡Š
      */
     private List<String> structruralWords = new ArrayList<String>();
 
     /**
-     * ¸Ã´ÊµÄ¹ØÏµÒåÔ­¡£key: ¹ØÏµÒåÔ­¡£ value£º »ù±¾ÒåÔ­|(¾ßÌå´Ê)µÄÒ»¸öÁĞ±í
+     * è¯¥è¯çš„å…³ç³»ä¹‰åŸã€‚key: å…³ç³»ä¹‰åŸã€‚ valueï¼š åŸºæœ¬ä¹‰åŸ|(å…·ä½“è¯)çš„ä¸€ä¸ªåˆ—è¡¨
      */
     private Map<String, List<String>> relationalPrimitives = new HashMap<String, List<String>>();
 
     /**
-     * ¸Ã´ÊµÄ¹ØÏµ·ûºÅÒåÔ­¡£Key: ¹ØÏµ·ûºÅ¡£ value: ÊôÓÚ¸Ã¹ÒÏµ·ûºÅµÄÒ»×é»ù±¾ÒåÔ­|(¾ßÌå´Ê)
+     * è¯¥è¯çš„å…³ç³»ç¬¦å·ä¹‰åŸã€‚Key: å…³ç³»ç¬¦å·ã€‚ value: å±äºè¯¥æŒ‚ç³»ç¬¦å·çš„ä¸€ç»„åŸºæœ¬ä¹‰åŸ|(å…·ä½“è¯)
      */
     private Map<String, List<String>> relationSimbolPrimitives = new HashMap<String, List<String>>();
 
@@ -53,7 +53,7 @@ public class Word {
         return word;
     }
     /**
-     * ÊÇ·ñÎªĞé´Ê
+     * æ˜¯å¦ä¸ºè™šè¯
      * @return
      */
     public boolean isStructruralWord(){
