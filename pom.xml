@@ -94,7 +94,23 @@
     <artifactId>commons-lang</artifactId>
     <version>2.5</version>
     </dependency>
-		
+    
+    <dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>matlab</artifactId>
+            <version>9.2</version>
+            <!-- 注意scope是system  -->
+            <scope>system</scope>    
+            <systemPath>${project.basedir}/src/main/resources/lib/javabuilder.jar</systemPath>
+     </dependency>
+      <dependency>
+            <groupId>TextMining</groupId>
+            <artifactId>matlab</artifactId>
+            <version>1.0</version>
+            <!-- 注意scope是system  -->
+            <scope>system</scope>    
+            <systemPath>${project.basedir}/src/main/resources/lib/TextMining.jar</systemPath>
+     </dependency>
 	</dependencies>
 
 	<build>

@@ -29,8 +29,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/resources/lib/javabuilder.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/lingpipe-4.1.2.jar"/>
-	<classpathentry kind="lib" path="src/main/resources/lib/TextMining.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
