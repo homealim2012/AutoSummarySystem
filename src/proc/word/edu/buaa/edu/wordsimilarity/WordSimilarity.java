@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.tomcat.util.buf.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  * 该类为此项目的主要文件，提供计算词语相似度的一些基本公式，都为静态。
@@ -86,7 +88,8 @@ public class WordSimilarity {
         String line = null;
         BufferedReader reader = null;
         try {
-            reader =new BufferedReader(new InputStreamReader(new FileInputStream("src/main/resources/dict/glossary.dat"), Charset.forName("GBK")));
+        	Resource resource = new ClassPathResource("BOOT-INF/classes/dict/glossary.dat");
+            reader =new BufferedReader(new InputStreamReader(resource.getInputStream(), Charset.forName("GBK")));
             line = reader.readLine();
             while (line != null) {
                 // parse the line

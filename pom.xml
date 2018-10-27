@@ -114,13 +114,12 @@
 	</dependencies>
 
 	<build>
-
 		<resources>
 			<resource>
 				<directory>src/main/resources/lib</directory>
 				<targetPath>BOOT-INF/lib/</targetPath>
 				<includes>
-					<include>*.jar</include>
+					<include>**/*.jar</include>
 				</includes>
 			</resource>
 			<resource>
@@ -138,12 +137,22 @@
 					<include>**/**</include>
 				</includes>
 			</resource>
-
 		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.4.2.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+				<configuration>
+					<mainClass>edu.as.sys.DemoApplication</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
