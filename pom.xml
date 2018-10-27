@@ -28,7 +28,7 @@
 
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -84,36 +84,62 @@
 			<version>1.0.2</version>
 		</dependency>
 		<dependency>
-	<groupId>org.apache.opennlp</groupId>
-	<artifactId>opennlp-tools</artifactId>
-	<version>1.8.4</version>
-	
-    </dependency>
-	<dependency>
-    <groupId>commons-lang</groupId>
-    <artifactId>commons-lang</artifactId>
-    <version>2.5</version>
-    </dependency>
-    
-    <dependency>
-            <groupId>com.mathworks</groupId>
-            <artifactId>matlab</artifactId>
-            <version>9.2</version>
-            <!-- 注意scope是system  -->
-            <scope>system</scope>    
-            <systemPath>${project.basedir}/src/main/resources/lib/javabuilder.jar</systemPath>
-     </dependency>
-      <dependency>
-            <groupId>TextMining</groupId>
-            <artifactId>matlab</artifactId>
-            <version>1.0</version>
-            <!-- 注意scope是system  -->
-            <scope>system</scope>    
-            <systemPath>${project.basedir}/src/main/resources/lib/TextMining.jar</systemPath>
-     </dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-tools</artifactId>
+			<version>1.8.4</version>
+
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mathworks</groupId>
+			<artifactId>matlab</artifactId>
+			<version>9.2</version>
+			<!-- 注意scope是system -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/javabuilder.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>TextMining</groupId>
+			<artifactId>matlab</artifactId>
+			<version>1.0</version>
+			<!-- 注意scope是system -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/TextMining.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources/lib</directory>
+				<targetPath>BOOT-INF/lib/</targetPath>
+				<includes>
+					<include>*.jar</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>BOOT-INF/classes/</targetPath>
+			</resource>
+
+			<!-- 打包时将jsp文件拷贝到META-INF目录下 -->
+			<resource>
+				<!-- 指定resources插件处理哪个目录下的资源文件 -->
+				<directory>src/main/webapp</directory>
+				<!--注意此次必须要放在此目录下才能被访问到 -->
+				<targetPath>META-INF/resources</targetPath>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
