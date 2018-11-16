@@ -6,16 +6,12 @@ package edu.buaa.edu.wordsimilarity;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 /**
  * 义原
@@ -38,10 +34,11 @@ public class Primitive {
      */
     static {
         String line = null;
-        BufferedReader reader=null;
+
         try {
-        	Resource resource = new ClassPathResource("BOOT-INF/classes/dict/WHOLE.DAT");
-            reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), Charset.forName("GBK")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader
+            		(new FileInputStream("src/main/resources/dict/WHOLE.DAT"), 
+            		Charset.forName("GBK")));
             line = reader.readLine();
 
             while (line != null) {
@@ -64,14 +61,6 @@ public class Primitive {
             // TODO Auto-generated catch block
             System.out.println(line);
             e.printStackTrace();
-        }finally{
-        	try {
-				reader.close();
-			} catch (Exception e) {
-					// TODO 自动生成的 catch 块
-					e.printStackTrace();
-			}
-        	
         }
     }
 
