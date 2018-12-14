@@ -240,15 +240,16 @@ public class NLP {
     	List<String> res=new ArrayList<String>();
     	if(list.size()<=0)
     		return res;
-    	int order=list.get(0).getOrder();
     	for(int i=1;i<list.size();i++)
-    		if(order!=list.get(i).getOrder())
+    	{
+    		int order=list.get(i).getOrder();
+    		if(order==1)
     		{
     			res.add(list.get(i).getOri_sentence());
-    			order=list.get(i).getOrder();
     			if(res.size()>=25)
     				break;
     		}
+    	}
     	return res;
     }
 }
